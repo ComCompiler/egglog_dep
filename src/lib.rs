@@ -247,7 +247,7 @@ impl FromStr for RunMode {
 
 #[derive(Clone)]
 pub struct EGraph {
-    backend: egglog_bridge::EGraph,
+    pub backend: egglog_bridge::EGraph,
     pub parser: Parser,
     names: check_shadowing::Names,
     /// pushed_egraph forms a linked list of pushed egraphs.
@@ -290,7 +290,7 @@ pub struct Function {
     decl: ResolvedFunctionDecl,
     schema: ResolvedSchema,
     can_subsume: bool,
-    backend_id: egglog_bridge::FunctionId,
+    pub backend_id: egglog_bridge::FunctionId,
 }
 
 impl Function {
