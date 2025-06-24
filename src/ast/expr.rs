@@ -1,6 +1,6 @@
 use crate::{core::ResolvedCall, *};
 use ordered_float::OrderedFloat;
-use std::{fmt::Display, hash::Hasher};
+use std::{convert::Infallible, fmt::Display, hash::Hasher};
 
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone)]
 pub enum Literal {
@@ -9,6 +9,14 @@ pub enum Literal {
     String(String),
     Bool(bool),
     Unit,
+}
+
+impl TryFrom<Literal> for f64 {
+    type Error = Infallible;
+
+    fn try_from(value: Literal) -> Result<Self, Self::Error> {
+        <OrderedFloat<f64> as TryFrom<Literal>>::try_from(value).map(|x| x.try_into().unwrap())
+    }
 }
 
 macro_rules! impl_from {
